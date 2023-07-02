@@ -17,8 +17,21 @@ public class JpaMain {
 
         try{
 
+            Movie movie = new Movie();
+            movie.setActor("송강호");
+            movie.setDirector("봉준호");
+            movie.setName("기생충");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
 
 
+            System.out.println("findMovie = " + findMovie);
 
 
             tx.commit();

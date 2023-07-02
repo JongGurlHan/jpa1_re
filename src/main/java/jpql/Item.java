@@ -9,9 +9,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Item {
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private l
+    private Long id;
+
+    private String name;
+
+    private int price;
+    private int stockQuantity;
+
 }
