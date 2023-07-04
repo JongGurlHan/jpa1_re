@@ -17,21 +17,30 @@ public class JpaMain {
 
         try{
 
-            Movie movie = new Movie();
-            movie.setActor("송강호");
-            movie.setDirector("봉준호");
-            movie.setName("기생충");
-            movie.setPrice(10000);
+            Team teamA = new Team();
+            teamA.setName("teamA");
+            em.persist(teamA);
 
-            em.persist(movie);
+            Team teamB = new Team();
+            teamA.setName("teamB");
+            em.persist(teamB);
+
+            Member member1 = new Member();
+            member1.setUsername("한종걸");
+            member1.setTeam(teamA);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("두종걸");
+            member2.setTeam(teamB);
+            em.persist(member2);
+
 
             em.flush();
             em.clear();
 
-            Movie findMovie = em.find(Movie.class, movie.getId());
-
-
-            System.out.println("findMovie = " + findMovie);
+            em.createQuery("select m from Member m", Member.class)
+                            .getResultList();
 
 
             tx.commit();
