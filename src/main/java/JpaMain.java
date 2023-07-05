@@ -17,21 +17,11 @@ public class JpaMain {
 
         try{
 
-            Child child1 = new Child();
-            Child child2 = new Child();
-
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-
-
-            em.persist(parent);
-
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setAddress(new Address("seoul","광명로", "1000"));
+            member.setWorkPeriod(new Period());
+            em.persist(member);
 
             tx.commit();
         }catch (Exception e){
