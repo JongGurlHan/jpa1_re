@@ -17,30 +17,20 @@ public class JpaMain {
 
         try{
 
-            Team teamA = new Team();
-            teamA.setName("teamA");
-            em.persist(teamA);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Team teamB = new Team();
-            teamA.setName("teamB");
-            em.persist(teamB);
-
-            Member member1 = new Member();
-            member1.setUsername("한종걸");
-            member1.setTeam(teamA);
-            em.persist(member1);
-
-            Member member2 = new Member();
-            member2.setUsername("두종걸");
-            member2.setTeam(teamB);
-            em.persist(member2);
-
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
             em.flush();
             em.clear();
 
-            em.createQuery("select m from Member m", Member.class)
-                            .getResultList();
+            Parent findParent = em.find(Parent.class, parent.getId());
+
+
+            em.persist(parent);
 
 
             tx.commit();
