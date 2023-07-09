@@ -30,13 +30,15 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-
-            List<Team> result = em.createQuery("select t from Member m join m.team t", Team.class)
+            List<MemberDTO> result = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
                     .getResultList();
 
-            Team team = result.get(0);
+            MemberDTO memberDTO = result.get(0);
 
-            System.out.println("team = " + team.getName());
+            System.out.println("memberDTO = " + memberDTO);
+            System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
+            System.out.println("memberDTO.getAge() = " + memberDTO.getAge());
+
 
             tx.commit();
         }catch (Exception e){
