@@ -17,26 +17,26 @@ public class JpaMain {
 
         try{
 
-            Address address = new Address("BUSAN", "street", "1000");
+            Team team1 = new Team();
+            team1.setName("team1");
+            em.persist(team1);
+
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setAddress(address);
+            member.setTeam(team1);
             em.persist(member);
 
-            Address copyAddress = new Address(address.getCity(), address.getStreet() , address.getZipcode());
-
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            member2.setAddress(copyAddress);
-            em.persist(member2);
-
-            member2.getAddress().setCity("SEOUL");
+            em.flush();
+            em.clear();
 
 
+            List<Team> result = em.createQuery("select t from Member m join m.team t", Team.class)
+                    .getResultList();
 
+            Team team = result.get(0);
 
-            em.persist(member);
+            System.out.println("team = " + team.getName());
 
             tx.commit();
         }catch (Exception e){

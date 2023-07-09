@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ex1-hello-jpa" />
-        <module name="jpa1_re" />
         <module name="jpa1-2" />
       </profile>
     </annotationProcessing>
