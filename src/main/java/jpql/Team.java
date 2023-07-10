@@ -17,8 +17,6 @@ public class Team {
 
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
     private Long id;
     private String name;
 
