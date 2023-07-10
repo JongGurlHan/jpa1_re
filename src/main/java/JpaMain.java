@@ -16,28 +16,38 @@ public class JpaMain {
         tx.begin();
 
         try{
-
             Team team1 = new Team();
             team1.setName("team1");
             em.persist(team1);
 
+            Team team2 = new Team();
+            team2.setName("team2");
+            em.persist(team2);
 
             Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team1);
+            member.setUsername("관리자1");
+            member.changeTeam(team1);
             em.persist(member);
+
+            Member member2 = new Member();
+            member2.setUsername("관리자2");
+            member2.changeTeam(team2);
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            List<MemberDTO> result = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+           String query = "select t from Member m join m.team t ";
+
+
+            List<Team> resultList = em.createQuery(query, Team.class)
                     .getResultList();
 
-            MemberDTO memberDTO = result.get(0);
+            System.out.println("resultList = " + resultList.size());
 
-            System.out.println("memberDTO = " + memberDTO);
-            System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
-            System.out.println("memberDTO.getAge() = " + memberDTO.getAge());
+            for (Team team : resultList) {
+                System.out.println("member = " + team.getName());
+            }
 
 
             tx.commit();

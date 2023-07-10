@@ -23,11 +23,16 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @Embedded
-    private Period workPeriod;
+//    @Embedded
+//    private Period workPeriod;
+//
+//    @Embedded
+//    private Address address;
 
-    @Embedded
-    private Address address;
+    public void changeTeam(Team team){
+        this.team = team;
+        team.getMembers().add(this);
+    }
 
 
 
